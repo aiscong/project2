@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'spec_helper'
 
 describe "Static pages" do
-
+let(:base_title) { "Project2 for CS369" }
   describe "FAQ page" do
 
     it "should have the content 'FAQ'" do
@@ -12,7 +12,7 @@ describe "Static pages" do
 
     it "should have the title 'FAQ'" do
       visit '/static_pages/faq'
-      expect(page).to have_title("Project2 for CS369 | FAQ")
+      expect(page).to have_title("#{base_title} | FAQ")
     end
   end
 
@@ -24,7 +24,7 @@ describe "Static pages" do
     end
     it "should have the title 'Blog'" do
       visit '/static_pages/blog'
-      expect(page).to have_title("Project2 for CS369 | Blog")
+      expect(page).to have_title("#{base_title} | Blog")
     end
   end
 
@@ -36,7 +36,7 @@ describe "Static pages" do
     end
     it "should have the title 'About Us'" do
       visit '/static_pages/about'
-      expect(page).to have_title("Project2 for CS369 | About Us")
+      expect(page).to have_title("#{base_title} | About Us")
     end
   end
 end

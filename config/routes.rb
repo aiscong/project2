@@ -1,7 +1,7 @@
 Project2::Application.routes.draw do
-  get "static_pages/faq"
-  get "static_pages/blog"
-  get "static_pages/about"
+  match '/faq',    to: 'static_pages#faq', via: 'get'
+  match '/about',   to: 'static_pages#about', via: 'get'
+  match '/blog', to: 'static_pages#blog', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

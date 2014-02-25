@@ -1,42 +1,61 @@
 require 'spec_helper'
-require 'spec_helper'
 
 describe "Static pages" do
-let(:base_title) { "Project2 for CS369" }
-  describe "FAQ page" do
 
-    it "should have the content 'FAQ'" do
-      visit '/static_pages/faq'
-      expect(page).to have_content('FAQ')
-    end
+  subject { page }
 
-    it "should have the title 'FAQ'" do
-      visit '/static_pages/faq'
-      expect(page).to have_title("#{base_title} | FAQ")
-    end
+ shared_examples_for "all static pages" do
+    it { should have_selector('h1', text: heading) }
+    it { should have_title(full_title(page_title)) }
   end
 
-  describe "Blog page" do
+  describe "FAQ page" do
+    before { visit faq_path }
+    let(:heading)    { 'Welcome to project2' }
+    let(:page_title) { 'FAQ' }
 
-    it "should have the content 'Blog'" do
-      visit '/static_pages/blog'
-      expect(page).to have_content('Blog')
-    end
-    it "should have the title 'Blog'" do
-      visit '/static_pages/blog'
-      expect(page).to have_title("#{base_title} | Blog")
-    end
+    it_should_behave_like "all static pages"
   end
 
   describe "About page" do
+    before { visit about_path }
+    let(:heading)    { 'Welcome to project2' }
+    let(:page_title) { 'About Us' }
 
-    it "should have the content 'About Us'" do
-      visit '/static_pages/about'
-      expect(page).to have_content('About Us')
-    end
-    it "should have the title 'About Us'" do
-      visit '/static_pages/about'
-      expect(page).to have_title("#{base_title} | About Us")
-    end
+    it_should_behave_like "all static pages"
+  end
+
+  describe "Blog page" do
+    before { visit blog_path }
+    let(:heading)    { 'Welcome to project2' }
+    let(:page_title) { 'Blog' }
+
+    it_should_behave_like "all static pages"
+  end
+
+  it "should have the right links on the layout" do
+    visit about_path
+    click_link "About"
+    expect(page).to have_title(full_title('About Us'))
+    click_link "FAQ"
+    expect(page).to have_title(full_title('FAQ'))
+    click_link "Blog"
+    expect(page).to have_title(full_title('Blog'))
+
+    visit faq_path
+    click_link "About"
+    expect(page).to have_title(full_title('About Us'))
+    click_link "FAQ"
+    expect(page).to have_title(full_title('FAQ'))
+    click_link "Blog"
+    expect(page).to have_title(full_title('Blog'))
+  
+    visit blog_path
+    click_link "About"
+    expect(page).to have_title(full_title('About Us'))
+    click_link "FAQ"
+    expect(page).to have_title(full_title('FAQ'))
+    click_link "Blog"
+    expect(page).to have_title(full_title('Blog'))
   end
 end
